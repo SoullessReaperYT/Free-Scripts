@@ -4,7 +4,7 @@ import { ActionFormData, ModalFormData } from '@minecraft/server-ui'
 import Database from './Database.js'
 
 world.afterEvents.itemUse.subscribe(({source: player, itemStack: item}) => {
- if (player.typeId === 'minecraft:player' && item.typeId === 'minecraft:paper' && player.hasTag('Admin')) return system.run(() => MainMenu(player))
+ if (player.typeId === 'minecraft:player' && item.typeId === 'minecraft:compass' && player.hasTag('Admin')) return system.run(() => MainMenu(player))
 })
 
 function MainMenu(player) {
