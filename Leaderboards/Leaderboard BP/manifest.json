@@ -1,0 +1,41 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "LeaderBard Code",
+    "description": "THE BOSS9345 LeaderBoard's Code",
+    "min_engine_version": [1, 20, 40],
+    "uuid": "ac77a128-821b-400c-b019-f6fa0fabfd68",
+    "version": [1, 0, 0]
+  },
+  "modules": [
+    {
+      "description": "Data Module",
+      "type": "data",
+      "uuid": "4228d6f5-6138-4d0c-9ce7-71724288f2c8",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "Script API Module",
+      "language": "javascript",
+      "type": "script",
+      "uuid": "11442feb-b390-4eca-8a9a-f90c3b9e4e18",
+      "version": [1, 0, 0],
+      "entry": "scripts/index.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.8.0-beta"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.2.0-beta"
+    }
+  ],
+  "metadata": {
+    "authors": ["THE BOSS9345"],
+    "license": "MIT",
+    "url": "hhttps://github.com/THEBOSS9345/Leaderboard"
+  }
+}

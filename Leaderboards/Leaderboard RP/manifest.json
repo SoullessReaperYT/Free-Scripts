@@ -1,0 +1,28 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": ["THE BOSS9345"],
+		"license": "MIT",
+		"url": "https://github.com/THEBOSS9345/Leaderboard"
+	  },
+	"header": {
+		"name": "Leaderboard's Code",
+		"description": "THE BOSS9345 LeaderBoard's Code",
+		"min_engine_version": [1, 20, 10],
+		"uuid": "02a9b93d-d48e-4e39-9a05-05517389ea90",
+		"version": [1, 0, 0]
+	},
+	"modules": [
+		{
+			"type": "resources",
+			"uuid": "c40a9740-8309-11ee-b962-0242ac121303",
+			"version": [1, 0, 0]
+		}
+	],
+	"dependencies": [
+		{
+			"uuid": "c40a98f8-8309-11ee-b962-0242ac120002",
+			"version": [1, 0, 0]
+		}
+	]
+}

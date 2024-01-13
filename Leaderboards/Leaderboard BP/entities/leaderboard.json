@@ -1,0 +1,61 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:entity": {
+      "description": {
+        "identifier": "boss:floating_leaderboard",
+        "is_spawnable": true,
+        "is_summonable": true,
+        "is_experimental": false
+      },
+      "component_groups": {
+        "boss:despawn": {
+          "minecraft:instant_despawn": {}
+        }
+      },
+      "components": {
+        "minecraft:damage_sensor": {
+          "triggers": {
+            "cause": "all",
+            "deals_damage": false
+          }
+        },
+        "minecraft:type_family": {
+          "family": ["leaderboard"]
+        },
+        "minecraft:nameable": {
+          "alwaysShow": true,
+          "allowNameTagRenaming": true
+        },
+        "minecraft:health": {
+          "value": 1,
+          "max": 1,
+          "min": 1
+        },
+        "minecraft:collision_box": {
+          "width": 0.0,
+          "height": 0.0
+        },
+        "minecraft:push_through": {
+          "value": 1
+        },
+        "minecraft:scale": {
+          "value": 0.0
+        },
+        "minecraft:knockback_resistance": {
+          "value": 100,
+          "max": 100
+        },
+        "minecraft:physics": {
+          "has_gravity": false
+        }
+      },
+      "events": {
+        "boss:despawn": {
+          "add": {
+            "component_groups": ["boss:despawn"]
+          }
+        }
+      }
+    }
+  }
+  
