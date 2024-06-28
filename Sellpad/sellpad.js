@@ -1,43 +1,48 @@
-import { world, system, Vector } from '@minecraft/server';
+import { world, system } from '@minecraft/server';
 
-const scoreboard = 'Money'
+const items = [
+  { typeId: 'minecraft:stone', price: 1 },
+  { typeId: 'minecraft:dirt', price: 1 },
+  { typeId: 'minecraft:grass_block', price: 1 },
+];
 
-const items = new Map([
-  ['dirt', 66],
-  ['stone', 1],
-  ['smooth_stone', 1]
-]);
+const sellBlockType1 = 'minecraft:beacon';
 
-system.runInterval(() => {
-  for (const player of world.getAllPlayers()) {
-    if (isBlockOn(player, 'minecraft:beacon')) return sell(player);   
-  }
-});
+system.runInterval(checkSellBlock, 20);
+
+function checkSellBlock() {
+  world.getAllPlayers().forEach(player => {
+      const blockBelow = player.dimension.getBlock({
+          x: Math.floor(player.location.x),
+          y: Math.floor(player.location.y) - 1,
+          z: Math.floor(player.location.z)
+      });
+
+      if (blockBelow && blockBelow.typeId === sellBlockType1) {
+          sell(player);
+      }
+  });
+}
 
 function sell(player) {
   const inv = inventory(player);
-  const item = inv.items.find(i => items.has(i.name));
-  if (!item) return;
-  const totalPrice = item.amount * items.get(item.name);
-  player.runCommandAsync(`scoreboard players add @s ${scoreboard} ${totalPrice}`);
-  player.runCommandAsync(`clear @s ${item.name} 0 ${item.amount}`);
-  player.sendMessage(`§aYou sold ${item.amount} ${item.name} for ${totalPrice} cash!`);
+  inv.forEach(item => {
+      const itemData = items.find(data => data.typeId === item.typeId);
+      if (itemData) {
+          const totalPrice = item.amount * itemData.price;
+          const objective = 'kill_coins';
+          player.runCommand(`scoreboard players add @s ${objective} ${totalPrice}`);
+          player.runCommand(`clear @s ${item.typeId} 0 ${item.amount}`);
+          player.sendMessage(`§6You sold §f${item.amount} ${item.typeId.split(':')[1]} §6for §2${totalPrice}$!`);
+      }
+  });
 }
 
 function inventory(player) {
   const inv = player.getComponent('inventory').container;
   const itemObjects = Array.from({ length: 36 })
-    .map((_, i) => inv.getItem(i))
-    .filter(item => item)
-    .reduce((accumulator, item) => {
-      const name = item.nameTag || item.typeId.split(':')[1];
-      const amount = item.amount;
-      accumulator[name] = accumulator[name] ? { name, amount: accumulator[name].amount + amount } : { name, amount };
-      return accumulator;
-    }, {});
-  return { items: Object.values(itemObjects) };
-}
-
-function isBlockOn(player, itemID) {
-return player.dimension.getBlock(new Vector(player.location.x, player.location.y - 1, player.location.z)).typeId === itemID;
+      .map((_, i) => inv.getItem(i))
+      .filter(item => item)
+      .map(item => ({ typeId: item.typeId, amount: item.amount }));
+  return itemObjects;
 }
